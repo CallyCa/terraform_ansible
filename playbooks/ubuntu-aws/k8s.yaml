@@ -1,0 +1,27 @@
+---
+- name: Kubernetes
+  hosts: ec2
+  connection: ssh
+
+  tasks:
+  - block:
+      - name: Installing Kubectl 1.22.0
+        become: true
+        get_url:    
+          url: 'https://dl.k8s.io/release/v1.22.0/bin/linux/amd64/kubectl'
+          dest: /usr/local/bin/kubectl
+          mode: 755
+      - name: Downloading Kubectx and Kubens 
+        become: true
+        git:
+          repo: 'https://github.com/ahmetb/kubectx'
+          dest: /opt/kubectx 
+      - name: Creating Symlink to kubectx and kubens 
+        become: true
+        file:
+          src: '/opt/kubectx/{{ item }}'
+          dest: '/usr/local/bin/{{ item }}'
+          state: link
+        with_items:
+          - kubectx
+          - kubens  

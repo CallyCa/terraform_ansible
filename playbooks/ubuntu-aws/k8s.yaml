@@ -1,7 +1,7 @@
 ---
 - name: Kubernetes
-  hosts: ec2
-  connection: ssh
+  hosts: localhost
+  connection: local
 
   tasks:
   - block:

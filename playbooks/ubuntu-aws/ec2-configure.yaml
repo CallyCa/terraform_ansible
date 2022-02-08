@@ -1,7 +1,8 @@
 ---
 - name: Configure EC2 instance
-  hosts: ec2
-  connection: ssh
+  hosts: localhost
+  connection: local
+  sudo: true
 
   tasks:
     - name: Install pip3

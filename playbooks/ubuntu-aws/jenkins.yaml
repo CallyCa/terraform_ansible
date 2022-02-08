@@ -1,7 +1,7 @@
 ---
 - name: Jenkins
-  hosts: ec2
-  connection: ssh
+  hosts: localhost
+  connection: local
 
   tasks:
     - name: Install Java Requirements

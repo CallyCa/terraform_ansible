@@ -21,9 +21,9 @@ module "vpc" {
   name = "vpc-${local.name_suffix}"
   cidr = var.vpc_cidr_block
 
-  azs             = data.aws_availability_zones.available.names
-  private_subnets = slice(var.private_subnet_cidr_blocks, 0, var.private_subnet_count)
-  public_subnets  = slice(var.public_subnet_cidr_blocks, 0, var.public_subnet_count)
+  azs                  = data.aws_availability_zones.available.names
+  private_subnets      = slice(var.private_subnet_cidr_blocks, 0, var.private_subnet_count)
+  public_subnets       = slice(var.public_subnet_cidr_blocks, 0, var.public_subnet_count)
   enable_dns_support   = true
   enable_dns_hostnames = true
 
@@ -135,7 +135,7 @@ resource "aws_instance" "web" {
   vpc_security_group_ids      = [module.app_security_group.this_security_group_id, module.ssh_security_group.this_security_group_id]
   associate_public_ip_address = true
   key_name                    = aws_key_pair.ssh_key.key_name
-  user_data              = "${file("../../script/setup.sh")}"
+  user_data                   = file("../../script/setup.sh")
 
 
   tags = local.tags
